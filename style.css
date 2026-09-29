@@ -1,95 +1,112 @@
-:root {
-    --bg-color: #0B0F19;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --accent: #00FF94;
-    --text-main: #FFFFFF;
-    --text-muted: #A0AAB5;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форпост | Оставить заявку - SMM-агентство</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Градиентный фон -->
+    <div class="gradient-bg"></div>
+    
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span>Форпост</span>
+            </div>
+            <div class="nav-links">
+                <a href="#">Услуги</a>
+                <a href="#">Отзывы</a>
+                <a href="#">О нас</a>
+                <a href="#" class="nav-contact">Связаться</a>
+            </div>
+        </div>
+    </nav>
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <h1>Оставить заявку</h1>
+                <p>Заполните форму ниже, и мы свяжемся с вами в ближайшее время для обсуждения вашего проекта</p>
+            </div>
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-image: radial-gradient(circle at 50% 0%, rgba(0, 255, 148, 0.08) 0%, transparent 50%);
-}
+            <form id="leadForm" class="form-card">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+                    </div>
+                </div>
 
-.container { width: 100%; max-width: 480px; }
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                </div>
 
-.header { text-align: center; margin-bottom: 30px; }
-.logo {
-    font-size: 2.5rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: var(--text-main);
-    text-shadow: 0 0 20px rgba(0, 255, 148, 0.3);
-}
-.subtitle { color: var(--text-muted); margin-top: 8px; font-size: 0.9rem; }
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="example@mail.ru">
+                    </div>
+                </div>
 
-.form-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 35px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-}
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="company">Название компании</label>
+                        <input type="text" id="company" name="company" placeholder="ООО «Компания»">
+                    </div>
+                </div>
 
-.form-card h2 { font-size: 1.5rem; margin-bottom: 5px; }
-.form-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="task">Какая услуга вас интересует? *</label>
+                        <select id="task" name="task" required>
+                            <option value="" disabled selected>Выберите услугу</option>
+                            <option value="content">Контент-продакшн</option>
+                            <option value="target">Таргетированная реклама</option>
+                            <option value="bloggers">Работа с блогерами</option>
+                            <option value="community">Комьюнити-менеджмент</option>
+                            <option value="analytics">Аналитика и отчётность</option>
+                            <option value="complex">Комплексное продвижение</option>
+                        </select>
+                    </div>
+                </div>
 
-.input-group { margin-bottom: 20px; }
-label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="message">Расскажите о вашем проекте</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Опишите вашу задачу, цели и ожидания от сотрудничества..."></textarea>
+                    </div>
+                </div>
 
-input, select, textarea {
-    width: 100%;
-    padding: 14px 16px;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    color: var(--text-main);
-    font-size: 1rem;
-    transition: border 0.3s;
-}
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0, 255, 148, 0.1);
-}
+                <div class="form-row checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="agreement" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Я согласен с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных *</span>
+                    </label>
+                </div>
 
-.buttons-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
-}
+                <button type="submit" id="submitBtn" class="btn-submit">
+                    Отправить заявку
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 3.33333L17.5 10.8333L10 18.3333M3.33333 10.8333H16.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
 
-.btn {
-    flex: 1;
-    padding: 14px 0;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    color: #000;
-}
-.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-.btn:active { transform: scale(0.98); }
+                <p class="form-note">Нажимая кнопку, вы соглашаетесь с условиями обработки данных</p>
+            </form>
+        </div>
+    </div>
 
-.btn-wa { background: #25D366; }
-.btn-sms { background: #007AFF; color: #fff; }
-.btn-tg { background: var(--accent); }
-
-.privacy { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 20px; }
-
-@media (max-width: 500px) {
-    .form-card { padding: 25px; }
-    .buttons-group { flex-direction: column; }
-}
+    <script src="script.js"></script>
+</body>
+</html>
