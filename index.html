@@ -14,6 +14,7 @@
             <p class="subtitle">Ваш надежный авангард в digital-пространстве</p>
         </header>
 
+        <!-- Форма настроена на отправку через FormSubmit -->
         <form id="leadForm" class="form-card">
             <h2>Оставить заявку</h2>
             <p class="form-desc">Защитим ваш бренд и выведем его в лидеры рынка</p>
@@ -25,7 +26,7 @@
 
             <div class="input-group">
                 <label for="phone">Телефон</label>
-                <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
             </div>
 
             <div class="input-group">
@@ -43,17 +44,7 @@
                 <textarea id="message" name="message" rows="3" placeholder="Расскажите о вашем проекте..."></textarea>
             </div>
 
-            <div class="buttons-group">
-                <button type="button" class="btn btn-wa" data-channel="whatsapp">
-                    <span>WhatsApp</span>
-                </button>
-                <button type="button" class="btn btn-sms" data-channel="sms">
-                    <span>SMS</span>
-                </button>
-                <button type="button" class="btn btn-tg" data-channel="telegram">
-                    <span>Telegram</span>
-                </button>
-            </div>
+            <button type="submit" id="submitBtn" class="btn-submit">Отправить заявку</button>
             
             <p class="privacy">Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности</p>
         </form>
