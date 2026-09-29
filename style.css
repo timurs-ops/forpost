@@ -1,112 +1,186 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форпост | Оставить заявку - SMM-агентство</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Градиентный фон -->
-    <div class="gradient-bg"></div>
+:root {
+    /* Градиенты из вашего макета */
+    --gradient-start: #8B5CF6;    /* Фиолетовый */
+    --gradient-mid: #EC4899;      /* Розовый */
+    --gradient-end: #FBBF24;      /* Желтый */
     
-    <!-- Навигация -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <span>Форпост</span>
-            </div>
-            <div class="nav-links">
-                <a href="#">Услуги</a>
-                <a href="#">Отзывы</a>
-                <a href="#">О нас</a>
-                <a href="#" class="nav-contact">Связаться</a>
-            </div>
-        </div>
-    </nav>
+    /* Цвета */
+    --white: #FFFFFF;
+    --black: #111827;
+    --gray-100: #F9FAFB;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    
+    /* Тени */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
 
-    <div class="container">
-        <div class="form-wrapper">
-            <div class="form-header">
-                <h1>Оставить заявку</h1>
-                <p>Заполните форму ниже, и мы свяжемся с вами в ближайшее время для обсуждения вашего проекта</p>
-            </div>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-            <form id="leadForm" class="form-card">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="name">Ваше имя *</label>
-                        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
-                    </div>
-                </div>
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--black);
+    line-height: 1.5;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="phone">Телефон *</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-                    </div>
-                </div>
+/* Градиентный фон */
+.gradient-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 600px;
+    background: linear-gradient(135deg, 
+        var(--gradient-start) 0%, 
+        var(--gradient-mid) 50%, 
+        var(--gradient-end) 100%);
+    z-index: -1;
+}
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="example@mail.ru">
-                    </div>
-                </div>
+/* Навигация */
+.navbar {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="company">Название компании</label>
-                        <input type="text" id="company" name="company" placeholder="ООО «Компания»">
-                    </div>
-                </div>
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="task">Какая услуга вас интересует? *</label>
-                        <select id="task" name="task" required>
-                            <option value="" disabled selected>Выберите услугу</option>
-                            <option value="content">Контент-продакшн</option>
-                            <option value="target">Таргетированная реклама</option>
-                            <option value="bloggers">Работа с блогерами</option>
-                            <option value="community">Комьюнити-менеджмент</option>
-                            <option value="analytics">Аналитика и отчётность</option>
-                            <option value="complex">Комплексное продвижение</option>
-                        </select>
-                    </div>
-                </div>
+.logo { display: flex; align-items: center; gap: 12px; color: var(--white); font-weight: 700; font-size: 1.25rem; }
+.logo-icon { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; }
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="message">Расскажите о вашем проекте</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Опишите вашу задачу, цели и ожидания от сотрудничества..."></textarea>
-                    </div>
-                </div>
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: opacity 0.3s; }
+.nav-links a:hover { opacity: 0.8; }
+.nav-contact { background: var(--white); color: var(--black) !important; padding: 10px 24px; border-radius: 50px; font-weight: 600; }
 
-                <div class="form-row checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="agreement" required>
-                        <span class="checkmark"></span>
-                        <span class="checkbox-text">Я согласен с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных *</span>
-                    </label>
-                </div>
+/* Форма */
+.form-wrapper { max-width: 680px; margin: 60px auto; padding-bottom: 80px; }
+.form-header { text-align: center; margin-bottom: 40px; color: var(--white); }
+.form-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+.form-header p { font-size: 1.125rem; opacity: 0.9; max-width: 500px; margin: 0 auto; line-height: 1.6; }
 
-                <button type="submit" id="submitBtn" class="btn-submit">
-                    Отправить заявку
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 3.33333L17.5 10.8333L10 18.3333M3.33333 10.8333H16.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+.form-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: var(--shadow-xl);
+    animation: fadeIn 0.6s ease-out;
+}
 
-                <p class="form-note">Нажимая кнопку, вы соглашаетесь с условиями обработки данных</p>
-            </form>
-        </div>
-    </div>
+.form-row { margin-bottom: 24px; }
+.input-group { display: flex; flex-direction: column; }
+.input-group label { font-weight: 600; font-size: 0.95rem; color: var(--black); margin-bottom: 8px; }
 
-    <script src="script.js"></script>
-</body>
-</html>
+.input-group input, .input-group select, .input-group textarea {
+    padding: 16px 20px;
+    border: 2px solid var(--gray-200);
+    border-radius: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: var(--white);
+    color: var(--black);
+}
+
+.input-group input::placeholder, .input-group textarea::placeholder { color: var(--gray-400); }
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+}
+
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 48px;
+}
+
+.input-group textarea { resize: vertical; min-height: 120px; }
+
+/* Чекбокс */
+.checkbox-group { margin: 32px 0; }
+.checkbox-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 0.9rem; color: var(--gray-600); }
+.checkbox-label input[type="checkbox"] { display: none; }
+.checkmark { width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 6px; flex-shrink: 0; position: relative; transition: all 0.3s; margin-top: 2px; }
+.checkbox-label input[type="checkbox"]:checked + .checkmark { background: var(--gradient-start); border-color: var(--gradient-start); }
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+    border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.checkbox-text a { color: var(--gradient-start); text-decoration: underline; }
+
+/* ========== БОЛЬШАЯ КНОПКА ОТПРАВКИ ========== */
+.btn-submit {
+    width: 100%;
+    padding: 24px 32px; /* Увеличенные отступы для массивности */
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    border-radius: 18px;
+    font-size: 1.2rem; /* Крупный шрифт */
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+}
+
+.btn-submit:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-submit svg { width: 24px; height: 24px; transition: transform 0.3s; }
+.btn-submit:hover svg { transform: translateX(5px); }
+
+.form-note { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--gray-500); }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .form-header h1 { font-size: 2rem; }
+    .form-card { padding: 32px 24px; border-radius: 20px; }
+    .gradient-bg { height: 400px; }
+    .form-wrapper { margin: 40px auto; }
+}
+
+@media (max-width: 480px) {
+    .form-header h1 { font-size: 1.75rem; }
+    .btn-submit { padding: 20px 24px; font-size: 1.1rem; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
