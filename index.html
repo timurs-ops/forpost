@@ -3,104 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форпост | Оставить заявку - SMM-агентство</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Оставить заявку</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 400px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, button { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 8px 0; 
+            box-sizing: border-box; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+        }
+        button { 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        button:hover { 
+            background-color: #218838; 
+        }
+    </style>
 </head>
 <body>
-    <!-- Градиентный фон как на макете -->
-    <div class="gradient-bg"></div>
+
+    <h2>Оставить заявку</h2>
     
-    <!-- Навигация -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <span>Форпост</span>
-            </div>
-            <div class="nav-links">
-                <a href="#">Услуги</a>
-                <a href="#">Отзывы</a>
-                <a href="#">О нас</a>
-                <a href="#" class="nav-contact">Связаться</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Ваша ссылка Formspree уже вставлена ниже в атрибут action -->
+    <form action="https://formspree.io/f/mqpanbwn" method="POST">
+        
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
 
-    <div class="container">
-        <div class="form-wrapper">
-            <div class="form-header">
-                <h1>Оставить заявку</h1>
-                <p>Заполните форму ниже, и мы свяжемся с вами в ближайшее время для обсуждения вашего проекта</p>
-            </div>
+        <label for="phone">Номер телефона:</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 999-99-99" required>
 
-            <form id="leadForm" class="form-card">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="name">Ваше имя *</label>
-                        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
-                    </div>
-                </div>
+        <label for="social">Ссылка на соцсеть:</label>
+        <input type="url" id="social" name="social" placeholder="https://t.me/ваш_никнейм">
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="phone">Телефон *</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-                    </div>
-                </div>
+        <button type="submit">Отправить заявку</button>
+    </form>
 
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="example@mail.ru">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="task">Какая услуга вас интересует? *</label>
-                        <select id="task" name="task" required>
-                            <option value="" disabled selected>Выберите услугу</option>
-                            <option value="Контент-продакшн">Контент-продакшн</option>
-                            <option value="Таргетированная реклама">Таргетированная реклама</option>
-                            <option value="Работа с блогерами">Работа с блогерами</option>
-                            <option value="Комьюнити-менеджмент">Комьюнити-менеджмент</option>
-                            <option value="Аналитика и отчётность">Аналитика и отчётность</option>
-                            <option value="Комплексное продвижение">Комплексное продвижение</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="message">Расскажите о вашем проекте</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Опишите вашу задачу, цели и ожидания от сотрудничества..."></textarea>
-                    </div>
-                </div>
-
-                <div class="form-row checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="agreement" required>
-                        <span class="checkmark"></span>
-                        <span class="checkbox-text">Я согласен с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных *</span>
-                    </label>
-                </div>
-
-                <!-- Большая кнопка -->
-                <button type="submit" id="submitBtn" class="btn-submit">
-                    Отправить заявку
-                    <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 3.33333L17.5 10.8333L10 18.3333M3.33333 10.8333H16.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-
-                <p class="form-note">Нажимая кнопку, вы соглашаетесь с условиями обработки данных</p>
-            </form>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
