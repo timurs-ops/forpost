@@ -6,31 +6,51 @@
     <title>Оставить заявку</title>
     <style>
         body { 
-            font-family: Arial, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; 
             max-width: 400px; 
             margin: 50px auto; 
             padding: 20px; 
+            background-color: #f4f7f6;
         }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; margin-top: 0; color: #333; }
         label {
             font-weight: bold;
             display: block;
-            margin-top: 10px;
+            margin-top: 15px;
+            color: #555;
+            font-size: 14px;
         }
-        input, button { 
+        input { 
             width: 100%; 
             padding: 12px; 
-            margin: 8px 0; 
+            margin-top: 5px;
             box-sizing: border-box; 
             border: 1px solid #ccc; 
             border-radius: 4px; 
+            font-size: 16px;
+        }
+        input:focus {
+            border-color: #007bff;
+            outline: none;
         }
         button { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 25px;
             background-color: #28a745; 
             color: white; 
             border: none; 
+            border-radius: 4px;
             cursor: pointer; 
             font-size: 16px; 
             font-weight: bold;
+            transition: background-color 0.3s;
         }
         button:hover { 
             background-color: #218838; 
@@ -39,22 +59,24 @@
 </head>
 <body>
 
-    <h2>Оставить заявку</h2>
-    
-    <!-- Ваша ссылка Formspree уже вставлена ниже в атрибут action -->
-    <form action="https://formspree.io/f/mqpanbwn" method="POST">
+    <div class="form-container">
+        <h2>Оставить заявку</h2>
         
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+        <!-- Чистая HTML форма. Данные уйдут прямо на Formspree -->
+        <form action="https://formspree.io/f/mqpanbwn" method="POST">
+            
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
 
-        <label for="phone">Номер телефона:</label>
-        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 999-99-99" required>
+            <label for="phone">Номер телефона:</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (999) 999-99-99" required>
 
-        <label for="social">Ссылка на соцсеть:</label>
-        <input type="url" id="social" name="social" placeholder="https://t.me/ваш_никнейм">
+            <label for="social">Ссылка на соцсеть (Telegram, VK):</label>
+            <input type="text" id="social" name="social" placeholder="https://t.me/ваш_никнейм">
 
-        <button type="submit">Отправить заявку</button>
-    </form>
+            <button type="submit">Отправить заявку</button>
+        </form>
+    </div>
 
 </body>
 </html>
