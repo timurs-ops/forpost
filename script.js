@@ -1,54 +1,77 @@
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const channel = this.getAttribute('data-channel');
-        
-        // Сбор данных
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const task = document.getElementById('task').value;
-        const message = document.getElementById('message').value.trim();
+// ========== 1. МАСКА ДЛЯ ТЕЛЕФОНА ==========
+const phoneInput = document.getElementById('phone');
 
-        if (!name || !phone) {
-            alert('Пожалуйста, заполните Имя и Телефон');
-            return;
+phoneInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Убираем всё кроме цифр
+    
+    if (value.startsWith('8')) {
+        value = '7' + value.substring(1);
+    }
+    if (!value.startsWith('7') && value.length > 0) {
+        value = '7' + value;
+    }
+    
+    let formatted = '';
+    if (value.length > 0) formatted = '+7';
+    if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+    if (value.length >= 5) formatted += ') ' + value.substring(4, 7);
+    if (value.length >= 8) formatted += '-' + value.substring(7, 9);
+    if (value.length >= 10) formatted += '-' + value.substring(9, 11);
+    
+    e.target.value = formatted;
+});
+
+phoneInput.addEventListener('focus', function(e) {
+    if (!e.target.value) e.target.value = '+7 (';
+});
+
+phoneInput.addEventListener('blur', function(e) {
+    if (e.target.value === '+7 (') e.target.value = '';
+});
+
+
+// ========== 2. ОТПРАВКА НА ПОЧТУ ==========
+const form = document.getElementById('leadForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault(); // Останавливаем стандартную перезагрузку страницы
+    
+    // Проверка телефона (должно быть 11 цифр: 7 + 10 цифр номера)
+    const phoneDigits = phoneInput.value.replace(/\D/g, '');
+    if (phoneDigits.length !== 11) {
+        alert('Пожалуйста, введите корректный номер телефона полностью');
+        return;
+    }
+
+    // Блокируем кнопку, чтобы не нажали дважды
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
+
+    // Собираем данные формы
+    const formData = new FormData(form);
+
+    try {
+        // Отправляем данные на FormSubmit (ваша почта уже встроена в URL)
+        const response = await fetch("https://formsubmit.co/ajax/yydjdjd955@gmail.com", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+            form.reset(); // Очистить форму
+        } else {
+            throw new Error('Ошибка сервиса');
         }
-
-        // Формируем текст заявки
-        let text = `Заявка с сайта «Форпост»%0A%0A`;
-        text += `Имя: ${name}%0A`;
-        text += `Телефон: ${phone}%0A`;
-        text += `Задача: ${task}%0A`;
-        if (message) text += `Комментарий: ${message}%0A`;
-
-        // ВАЖНО: Замените на свои данные!
-        const waNumber = '79991234567'; // Номер WhatsApp без + и пробелов
-        const smsNumber = '+79991234567'; // Номер для SMS
-        const tgUsername = 'your_telegram_nickname'; // Никнейм в Telegram без @
-
-        let url = '';
-
-        switch(channel) {
-            case 'whatsapp':
-                url = `https://wa.me/${waNumber}?text=${text}`;
-                break;
-            case 'sms':
-                // Для iOS и Android
-                url = `sms:${smsNumber}?body=${text}`;
-                break;
-            case 'telegram':
-                // Telegram не поддерживает предзаполненный текст через обычные ссылки для пользователей.
-                // Мы копируем текст в буфер обмена и открываем чат.
-                navigator.clipboard.writeText(text.replace(/%0A/g, '\n')).then(() => {
-                    alert('Текст заявки скопирован! Сейчас откроется Telegram, просто вставьте текст в чат.');
-                    url = `https://t.me/${tgUsername}`;
-                }).catch(() => {
-                    // Фоллбек, если буфер обмена недоступен
-                    url = `https://t.me/${tgUsername}`;
-                    alert('Свяжитесь с нами в Telegram!');
-                });
-                break;
-        }
-
-        if (url) window.open(url, '_blank');
-    });
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('❌ Произошла ошибка при отправке. Пожалуйста, попробуйте позже или напишите нам напрямую.');
+    } finally {
+        // Возвращаем кнопку в исходное состояние
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить заявку';
+    }
 });
