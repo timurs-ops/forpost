@@ -3,110 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оставить заявку на услугу</title>
+    <title>Форпост — SMM-агентство</title>
     <style>
-        /* Современные базовые стили */
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f3f4f6;
+        /* --- БАЗОВЫЕ НАСТРОЙКИ И ШРИФТЫ --- */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #7b2cbf 0%, #f77f00 100%);
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --radius-card: 16px;
+            --radius-btn: 50px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { margin: 0; font-weight: 700; }
+        p { margin: 0; }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- ШАПКА --- */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: white; /* Для градиентного фона */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        .hero {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 80px 0 100px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text { flex: 1; max-width: 550px; }
+        .hero h1 { font-size: 48px; line-height: 1.2; margin-bottom: 20px; }
+        .hero p { font-size: 18px; opacity: 0.9; margin-bottom: 30px; }
+
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        
+        .btn-white { background: white; color: #7b2cbf; }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.5); color: white; background: transparent; }
+
+        /* Картинка справа (абстракция) */
+        .hero-image {
+            flex: 1;
+            max-width: 450px;
+            height: 350px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            /* Здесь можно вставить реальное фото через <img> */
+        }
+        .hero-image span { font-size: 80px; }
+
+        /* --- БЛОК УСЛУГ --- */
+        .services { padding: 80px 0; }
+        .section-label { color: #7b2cbf; font-weight: 700; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; margin-bottom: 10px; display: block;}
+        .section-title { font-size: 36px; margin-bottom: 40px; color: var(--text-dark); }
+
+        .service-list { display: flex; flex-direction: column; gap: 20px; }
+        
+        .service-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--radius-card);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: transform 0.2s;
+        }
+        .service-card:hover { transform: translateX(5px); }
+
+        .icon-box {
+            width: 50px; height: 50px;
+            background: #f3f4f6;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .service-info h3 { font-size: 20px; margin-bottom: 8px; }
+        .service-info p { color: var(--text-gray); font-size: 15px; }
+
+        /* --- ФОРМА ЗАЯВКИ (СТИЛЬ КАК НА ФОТО) --- */
+        .contact-section {
+            padding: 60px 0 100px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
-        .form-container {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+        .form-wrapper {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 420px;
+            max-width: 500px;
         }
-        h2 { 
-            text-align: center; 
-            margin-top: 0; 
-            margin-bottom: 25px;
-            color: #1f2937; 
-            font-size: 24px;
+
+        .form-wrapper h2 { text-align: center; margin-bottom: 30px; font-size: 28px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark); }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f9fafb;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            font-family: inherit;
         }
-        label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 6px;
-            color: #374151;
-            font-size: 14px;
-        }
-        input, select, textarea { 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 18px;
-            box-sizing: border-box; 
-            border: 1px solid #d1d5db; 
-            border-radius: 8px; 
-            font-size: 15px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background-color: #fff;
-        }
-        /* Эффект при клике на поле */
-        input:focus, select:focus, textarea:focus {
-            border-color: #4f46e5;
+        .form-control:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            border-color: #7b2cbf;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
         }
-        textarea {
-            resize: vertical; /* Разрешить растягивать только по вертикали */
-            min-height: 80px;
+
+        select.form-control { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.3s;
         }
-        button { 
-            width: 100%; 
-            padding: 14px; 
-            background-color: #4f46e5; /* Современный синий цвет */
-            color: white; 
-            border: none; 
-            border-radius: 8px;
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-        button:hover { 
-            background-color: #4338ca; /* Темнее при наведении */
+        .btn-submit:hover { opacity: 0.9; }
+
+        /* Адаптив для телефонов */
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 32px; }
+            .btn-group { justify-content: center; }
+            .hero-image { width: 100%; height: 250px; }
+            .form-wrapper { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>Заказать услугу</h2>
-        
-        <!-- Форма отправляет данные на ваш Formspree -->
-        <form action="https://formspree.io/f/mqpanbwn" method="POST">
-            
-            <label for="name">Ваше имя:</label>
-            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
-
-            <label for="phone">Номер телефона:</label>
-            <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
-
-            <label for="service">Какая услуга вас интересует?</label>
-            <select id="service" name="service" required>
-                <option value="" disabled selected>Выберите услугу из списка</option>
-                <!-- ИЗМЕНИТЕ НАЗВАНИЯ УСЛУГ НИЖЕ ПОД ВАШ БИЗНЕС -->
-                <option value="Консультация">Продвижение аккаунта</option>
-                <option value="Ремонт">Умение работать с блогерами</option>
-                <option value="Доставка">Помощь в рекламе бизнеса</option>
-                <option value="Монтаж">Умени радотать в SMM</option>
-                <option value="Другое">Другое (укажу в комментарии)</option>
-            </select>
-
-            <label for="message">Комментарий (необязательно):</label>
-            <textarea id="message" name="message" placeholder="Например: нужно сделать завтра до 18:00"></textarea>
-
-            <button type="submit">Отправить заявку</button>
-        </form>
+    <!-- Шапка -->
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"></div> Форпост
+            </div>
+            <!-- Можно добавить меню, если нужно -->
+        </header>
     </div>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>SMM-агентство,<br>которое даёт результат</h1>
+                <p>Мы не обещаем чудес — мы даём цифры. Полный цикл продвижения бренда в социальных сетях: от стратегии до масштабирования.</p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn btn-white">Оставить заявку</a>
+                    <a href="#services" class="btn btn-outline">Посмотреть кейсы</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Здесь имитация картинки с фото -->
+                <span></span> 
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" class="services">
+        <div class="container">
+            <span class="section-label">Наши услуги</span>
+            <h2 class="section-title">Что мы делаем</h2>
+            
+            <div class="service-list">
+                <!-- Карточка 1 -->
+                <div class="service-card">
+                    <div class="icon-box"></div>
+                    <div class="service-info">
+                        <h3>Контент-продакшн</h3>
+                        <p>Тексты, дизайн, фото, видео, Reels и Shorts. Создаём контент, который работает на ваши бизнес-задачи.</p>
+                    </div>
+                </div>
+                <!-- Карточка 2 -->
+                <div class="service-card">
+                    <div class="icon-box">🎯</div>
+                    <div class="service-info">
+                        <h3>Таргетированная реклама</h3>
+                        <p>Настраиваем, тестируем, масштабируем. Снижаем стоимость заявки и выводим рекламу на окупаемость.</p>
+                    </div>
+                </div>
+                <!-- Карточка 3 -->
+                <div class="service-card">
+                    <div class="icon-box">🤝</div>
+                    <div class="service-info">
+                        <h3>Работа с блогерами</h3>
+                        <p>Подбираем амбассадоров, чья аудитория совпадает с вашей ЦА. Честные интеграции.</p>
+                    </div>
+                </div>
+                 <!-- Карточка 4 -->
+                 <div class="service-card">
+                    <div class="icon-box">💬</div>
+                    <div class="service-info">
+                        <h3>Комьюнити-менеджмент</h3>
+                        <p>Защищаем репутацию бренда, работаем с комментариями и отзывами.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма заявки -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <h2>Обсудить проект</h2>
+                
+                <!-- ВАША ССЫЛКА FORMSPREE ВСТАВЛЕНА СЮДА -->
+                <form action="https://formspree.io/f/mqpanbwn" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="name">Как вас зовут?</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Иван Иванов" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 000-00-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Какая услуга интересует?</label>
+                        <select id="service" name="service" class="form-control" required>
+                            <option value="" disabled selected>Выберите из списка</option>
+                            <option value="Контент-продакшн">Контент-продакшн</option>
+                            <option value="Таргет">Таргетированная реклама</option>
+                            <option value="Блогеры">Работа с блогерами</option>
+                            <option value="Комьюнити">Комьюнити-менеджмент</option>
+                            <option value="Комплекс">Комплексное продвижение</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tariff">Какой тариф рассматриваете?</label>
+                        <select id="tariff" name="tariff" class="form-control" required>
+                            <option value="" disabled selected>Выберите тариф</option>
+                            <option value="Стандарт">Стандарт</option>
+                            <option value="Продвижение">Продвижение</option>
+                            <option value="VIP">VIP</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
