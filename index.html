@@ -5,138 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форпост — Оставить заявку</title>
     <style>
-        /* --- НАСТРОЙКИ СТИЛЯ (ЦВЕТА С ФОТО) --- */
         :root {
-            /* Градиент с вашего фото: от фиолетового к оранжевому */
             --primary-gradient: linear-gradient(135deg, #7b2cbf 0%, #f77f00 100%);
             --text-dark: #1f2937;
             --text-gray: #6b7280;
             --white: #ffffff;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Применяем градиент на весь фон страницы */
+            margin: 0; padding: 0;
             background: var(--primary-gradient);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             color: var(--text-dark);
         }
-
-        /* --- ЛОГОТИП В ЛЕВОМ ВЕРХНЕМ УГЛУ --- */
         .header-logo {
-            padding: 30px 40px;
-            font-size: 24px;
-            font-weight: 800;
-            color: white;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            padding: 30px 40px; font-size: 24px; font-weight: 800; color: white;
+            letter-spacing: 0.5px; display: flex; align-items: center; gap: 12px;
         }
-        
-        /* Кружочек рядом с названием, как на фото */
         .logo-icon {
-            width: 32px; 
-            height: 32px; 
-            background: rgba(255, 255, 255, 0.2); 
-            border-radius: 50%;
-            backdrop-filter: blur(5px);
+            width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%; backdrop-filter: blur(5px);
         }
-
-        /* --- ЦЕНТРИРОВАНИЕ ФОРМЫ --- */
         .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
         }
-
-        /* --- КАРТОЧКА ФОРМЫ --- */
         .form-wrapper {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 24px;
+            background: var(--white); padding: 40px; border-radius: 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 480px;
+            width: 100%; max-width: 480px;
         }
-
         .form-wrapper h2 { 
-            text-align: center; 
-            margin-top: 0; 
-            margin-bottom: 30px; 
-            font-size: 28px; 
-            color: var(--text-dark);
+            text-align: center; margin-top: 0; margin-bottom: 30px; 
+            font-size: 28px; color: var(--text-dark);
         }
-
-        /* --- ПОЛЯ ВВОДА --- */
         .form-group { margin-bottom: 20px; }
-        
         .form-group label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            color: var(--text-dark); 
+            display: block; margin-bottom: 8px; font-weight: 600; 
+            font-size: 14px; color: var(--text-dark); 
         }
-        
         .form-control {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 16px;
-            background: #f9fafb;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            font-family: inherit;
-            color: var(--text-dark);
+            width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb;
+            border-radius: 12px; font-size: 16px; background: #f9fafb;
+            transition: all 0.3s ease; box-sizing: border-box;
+            font-family: inherit; color: var(--text-dark);
         }
-
-        /* Эффект при клике на поле */
         .form-control:focus {
-            outline: none;
-            border-color: #7b2cbf; /* Фиолетовый акцент */
-            background: white;
+            outline: none; border-color: #7b2cbf; background: white;
             box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
         }
-
-        /* Стилизация выпадающего списка */
         select.form-control { 
             appearance: none; 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
-            background-repeat: no-repeat; 
-            background-position: right 1rem center; 
-            background-size: 1em; 
-            cursor: pointer;
+            background-repeat: no-repeat; background-position: right 1rem center; 
+            background-size: 1em; cursor: pointer;
         }
-
-        /* --- КНОПКА ОТПРАВКИ --- */
         .btn-submit {
-            width: 100%;
-            background: var(--primary-gradient); /* Тот же градиент, что и фон */
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: opacity 0.3s, transform 0.2s;
+            width: 100%; background: var(--primary-gradient); color: white;
+            border: none; padding: 16px; border-radius: 12px;
+            font-size: 18px; font-weight: 700; cursor: pointer;
+            margin-top: 10px; transition: opacity 0.3s, transform 0.2s;
         }
-        
-        .btn-submit:hover { 
-            opacity: 0.9; 
-            transform: translateY(-2px);
-        }
-
-        /* Адаптив для мобильных */
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
         @media (max-width: 480px) {
             .header-logo { padding: 20px; font-size: 20px; }
             .form-wrapper { padding: 25px; border-radius: 20px; }
@@ -146,20 +76,16 @@
 </head>
 <body>
 
-    <!-- Логотип в левом верхнем углу -->
     <div class="header-logo">
         <div class="logo-icon"></div>
         Форпост
     </div>
 
-    <!-- Центральная часть с формой -->
     <div class="main-content">
         <div class="form-wrapper">
             <h2>Обсудить проект</h2>
             
-            <!-- Ссылка Formspree -->
             <form action="https://formspree.io/f/mqpanbwn" method="POST">
-                
                 <div class="form-group">
                     <label for="name">Как вас зовут?</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Иван Иванов" required>
@@ -182,9 +108,9 @@
                     </select>
                 </div>
 
-                <!-- Поле с тарифами (названия точно как на лендинге) -->
                 <div class="form-group">
                     <label for="tariff">Какой тариф рассматриваете?</label>
+                    <!-- ВАЖНО: value должны точно совпадать с названиями на лендинге -->
                     <select id="tariff" name="tariff" class="form-control" required>
                         <option value="" disabled selected>Выберите тариф</option>
                         <option value="Старт">Старт</option>
@@ -198,41 +124,42 @@
         </div>
     </div>
 
-    <!-- СКРИПТ АВТОМАТИЧЕСКОГО ВЫБОРА ТАРИФА -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. Пытаемся получить тариф из URL (например, ?plan=Продвижение)
-            const urlParams = new URLSearchParams(window.location.search);
-            let selectedPlan = urlParams.get('plan');
-
-            // 2. Если в URL нет, пробуем достать из памяти браузера (localStorage)
+            // 1. Сначала ищем в памяти браузера (самый надежный способ)
+            let selectedPlan = localStorage.getItem('selectedPlan');
+            
+            // 2. Если в памяти нет, ищем в ссылке (запасной вариант)
             if (!selectedPlan) {
-                selectedPlan = localStorage.getItem('selectedPlan');
+                const urlParams = new URLSearchParams(window.location.search);
+                selectedPlan = urlParams.get('plan');
             }
 
-            // 3. Если тариф найден, автоматически выбираем его в списке
+            // 3. Если тариф найден, подставляем его в форму
             if (selectedPlan) {
                 const tariffSelect = document.getElementById('tariff');
+                
                 if (tariffSelect) {
+                    // Устанавливаем значение
                     tariffSelect.value = selectedPlan;
                     
-                    // Добавляем красивую фиолетовую подсветку на 2 секунды, чтобы клиент заметил
-                    tariffSelect.style.borderColor = '#7b2cbf';
-                    tariffSelect.style.boxShadow = '0 0 0 4px rgba(123, 44, 191, 0.15)';
-                    tariffSelect.style.background = '#fff';
+                    // Делаем красивую фиолетовую подсветку на 2.5 секунды
+                    tariffSelect.style.transition = "all 0.3s ease";
+                    tariffSelect.style.borderColor = "#7b2cbf";
+                    tariffSelect.style.boxShadow = "0 0 0 4px rgba(123, 44, 191, 0.2)";
+                    tariffSelect.style.background = "#fff";
                     
                     setTimeout(() => {
-                        tariffSelect.style.borderColor = '#e5e7eb';
-                        tariffSelect.style.boxShadow = 'none';
-                        tariffSelect.style.background = '#f9fafb';
-                    }, 2000);
+                        tariffSelect.style.borderColor = "#e5e7eb";
+                        tariffSelect.style.boxShadow = "none";
+                        tariffSelect.style.background = "#f9fafb";
+                    }, 2500);
                 }
                 
-                // Очищаем память, чтобы при следующем заходе без выбора тарифа поле было пустым
+                // Очищаем память после использования
                 localStorage.removeItem('selectedPlan');
             }
         });
     </script>
-
 </body>
 </html>
