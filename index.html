@@ -54,6 +54,12 @@
             outline: none; border-color: #7b2cbf; background: white;
             box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
         }
+        /* Стили для текстового поля (комментарий) */
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
         select.form-control { 
             appearance: none; 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
@@ -110,13 +116,18 @@
 
                 <div class="form-group">
                     <label for="tariff">Какой тариф рассматриваете?</label>
-                    <!-- ВАЖНО: value должны точно совпадать с названиями на лендинге -->
                     <select id="tariff" name="tariff" class="form-control" required>
                         <option value="" disabled selected>Выберите тариф</option>
                         <option value="Старт">Старт</option>
                         <option value="Продвижение">Продвижение</option>
                         <option value="VIP">VIP</option>
                     </select>
+                </div>
+
+                <!-- НОВОЕ ПОЛЕ: Комментарий -->
+                <div class="form-group">
+                    <label for="message">Комментарий (необязательно)</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Расскажите о вашем проекте, задайте вопрос или опишите пожелания..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Отправить заявку</button>
@@ -126,24 +137,19 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. Сначала ищем в памяти браузера (самый надежный способ)
             let selectedPlan = localStorage.getItem('selectedPlan');
             
-            // 2. Если в памяти нет, ищем в ссылке (запасной вариант)
             if (!selectedPlan) {
                 const urlParams = new URLSearchParams(window.location.search);
                 selectedPlan = urlParams.get('plan');
             }
 
-            // 3. Если тариф найден, подставляем его в форму
             if (selectedPlan) {
                 const tariffSelect = document.getElementById('tariff');
                 
                 if (tariffSelect) {
-                    // Устанавливаем значение
                     tariffSelect.value = selectedPlan;
                     
-                    // Делаем красивую фиолетовую подсветку на 2.5 секунды
                     tariffSelect.style.transition = "all 0.3s ease";
                     tariffSelect.style.borderColor = "#7b2cbf";
                     tariffSelect.style.boxShadow = "0 0 0 4px rgba(123, 44, 191, 0.2)";
@@ -156,7 +162,6 @@
                     }, 2500);
                 }
                 
-                // Очищаем память после использования
                 localStorage.removeItem('selectedPlan');
             }
         });
