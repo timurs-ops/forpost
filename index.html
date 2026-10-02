@@ -157,7 +157,7 @@
         <div class="form-wrapper">
             <h2>Обсудить проект</h2>
             
-            <!-- Ваша ссылка Formspree -->
+            <!-- Ссылка Formspree -->
             <form action="https://formspree.io/f/mqpanbwn" method="POST">
                 
                 <div class="form-group">
@@ -182,12 +182,12 @@
                     </select>
                 </div>
 
-                <!-- Новое поле с тарифами -->
+                <!-- Поле с тарифами (названия точно как на лендинге) -->
                 <div class="form-group">
                     <label for="tariff">Какой тариф рассматриваете?</label>
                     <select id="tariff" name="tariff" class="form-control" required>
                         <option value="" disabled selected>Выберите тариф</option>
-                        <option value="Стандарт">Стандарт</option>
+                        <option value="Старт">Старт</option>
                         <option value="Продвижение">Продвижение</option>
                         <option value="VIP">VIP</option>
                     </select>
@@ -197,6 +197,42 @@
             </form>
         </div>
     </div>
+
+    <!-- СКРИПТ АВТОМАТИЧЕСКОГО ВЫБОРА ТАРИФА -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Пытаемся получить тариф из URL (например, ?plan=Продвижение)
+            const urlParams = new URLSearchParams(window.location.search);
+            let selectedPlan = urlParams.get('plan');
+
+            // 2. Если в URL нет, пробуем достать из памяти браузера (localStorage)
+            if (!selectedPlan) {
+                selectedPlan = localStorage.getItem('selectedPlan');
+            }
+
+            // 3. Если тариф найден, автоматически выбираем его в списке
+            if (selectedPlan) {
+                const tariffSelect = document.getElementById('tariff');
+                if (tariffSelect) {
+                    tariffSelect.value = selectedPlan;
+                    
+                    // Добавляем красивую фиолетовую подсветку на 2 секунды, чтобы клиент заметил
+                    tariffSelect.style.borderColor = '#7b2cbf';
+                    tariffSelect.style.boxShadow = '0 0 0 4px rgba(123, 44, 191, 0.15)';
+                    tariffSelect.style.background = '#fff';
+                    
+                    setTimeout(() => {
+                        tariffSelect.style.borderColor = '#e5e7eb';
+                        tariffSelect.style.boxShadow = 'none';
+                        tariffSelect.style.background = '#f9fafb';
+                    }, 2000);
+                }
+                
+                // Очищаем память, чтобы при следующем заходе без выбора тарифа поле было пустым
+                localStorage.removeItem('selectedPlan');
+            }
+        });
+    </script>
 
 </body>
 </html>
