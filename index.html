@@ -118,9 +118,9 @@
                     <label for="tariff">Какой тариф рассматриваете?</label>
                     <select id="tariff" name="tariff" class="form-control" required>
                         <option value="" disabled selected>Выберите тариф</option>
-                        <option value="Старт">Старт</option>
-                        <option value="Продвижение">Продвижение</option>
-                        <option value="VIP">VIP</option>
+                        <option value="Light">Light</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Strong">Strong</option>
                     </select>
                 </div>
 
@@ -135,36 +135,34 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let selectedPlan = localStorage.getItem('selectedPlan');
-            
-            if (!selectedPlan) {
-                const urlParams = new URLSearchParams(window.location.search);
-                selectedPlan = urlParams.get('plan');
-            }
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Получаем параметр plan из адресной строки (например, ?plan=Medium)
+    const urlParams = new URLSearchParams(window.location.search);
+    const planName = urlParams.get('plan');
 
-            if (selectedPlan) {
-                const tariffSelect = document.getElementById('tariff');
-                
-                if (tariffSelect) {
-                    tariffSelect.value = selectedPlan;
+    if (planName) {
+        // 2. Находим все выпадающие списки на странице
+        const selects = document.querySelectorAll('select');
+        
+        selects.forEach(select => {
+            // 3. Проверяем каждую опцию в списке
+            for (let i = 0; i < select.options.length; i++) {
+                // Сравниваем текст или значение опции с названием тарифа (без учёта регистра)
+                if (select.options[i].text.toLowerCase() === planName.toLowerCase() || 
+                    select.options[i].value.toLowerCase() === planName.toLowerCase()) {
                     
-                    tariffSelect.style.transition = "all 0.3s ease";
-                    tariffSelect.style.borderColor = "#7b2cbf";
-                    tariffSelect.style.boxShadow = "0 0 0 4px rgba(123, 44, 191, 0.2)";
-                    tariffSelect.style.background = "#fff";
+                    // 4. Выбираем эту опцию
+                    select.selectedIndex = i;
                     
-                    setTimeout(() => {
-                        tariffSelect.style.borderColor = "#e5e7eb";
-                        tariffSelect.style.boxShadow = "none";
-                        tariffSelect.style.background = "#f9fafb";
-                    }, 2500);
+                    // 5. Сообщаем странице, что значение изменилось (важно для конструкторов сайтов)
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                    break;
                 }
-                
-                localStorage.removeItem('selectedPlan');
             }
         });
-    </script>
+    }
+});
+</script>
 </body>
 </html>
