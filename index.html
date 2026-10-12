@@ -6,7 +6,7 @@
     <title>Форпост — Оставить заявку</title>
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #7b2cbf 0%, #f77f00 100%);
+            --primary-gradient: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%); /* Синхронизировал с главной страницей */
             --text-dark: #1f2937;
             --text-gray: #6b7280;
             --white: #ffffff;
@@ -19,16 +19,32 @@
             display: flex; flex-direction: column;
             color: var(--text-dark);
         }
+        
+        /* Стили для логотипа (как на главной) */
         .header-logo {
-            padding: 30px 40px; font-size: 24px; font-weight: 800; color: white;
-            letter-spacing: 0.5px; display: flex; align-items: center; gap: 12px;
+            padding: 24px 40px;
+            display: flex;
+            align-items: flex-start;
         }
-        .logo-icon {
-            width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%; backdrop-filter: blur(5px);
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-badge {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px 10px 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .logo-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .logo-svg { height: 40px; width: auto; display: block; }
+
         .main-content {
-            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
+            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px 20px 40px;
         }
         .form-wrapper {
             background: var(--white); padding: 40px; border-radius: 24px;
@@ -54,7 +70,6 @@
             outline: none; border-color: #7b2cbf; background: white;
             box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
         }
-        /* Стили для текстового поля (комментарий) */
         textarea.form-control {
             resize: vertical;
             min-height: 100px;
@@ -73,8 +88,11 @@
             margin-top: 10px; transition: opacity 0.3s, transform 0.2s;
         }
         .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+        
         @media (max-width: 480px) {
-            .header-logo { padding: 20px; font-size: 20px; }
+            .header-logo { padding: 20px; }
+            .logo-svg { height: 34px; }
+            .logo-badge { padding: 8px 14px 8px 8px; }
             .form-wrapper { padding: 25px; border-radius: 20px; }
             .form-wrapper h2 { font-size: 24px; }
         }
@@ -82,9 +100,37 @@
 </head>
 <body>
 
+    <!-- Скрытые градиенты для логотипа -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="50%" stop-color="#A855F7"/>
+                <stop offset="100%" stop-color="#F59E0B"/>
+            </linearGradient>
+            <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="50%" stop-color="#A855F7"/>
+                <stop offset="100%" stop-color="#F59E0B"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Шапка с логотипом-ссылкой на главную -->
     <div class="header-logo">
-        <div class="logo-icon"></div>
-        Форпост
+        <a href="index.html" class="logo" title="Вернуться на главную">
+            <div class="logo-badge">
+                <svg class="logo-svg" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg" aria-label="Форпост SMM Агентство">
+                    <g transform="translate(5, 8)">
+                        <path d="M 8 8 L 18 8 L 18 42 L 8 42 Z" fill="url(#logoGrad)"/>
+                        <path d="M 8 8 L 42 8 L 38 16 L 8 16 Z" fill="url(#logoGrad)"/>
+                        <path d="M 18 24 L 38 24 L 35 32 L 18 32 Z" fill="url(#logoGrad)"/>
+                    </g>
+                    <text x="55" y="44" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="url(#textGrad)" letter-spacing="-1">Форпост</text>
+                    <text x="57" y="62" font-family="Arial, sans-serif" font-size="14" font-weight="800" fill="#4C1D95" letter-spacing="1">SMM АГЕНТСТВО</text>
+                </svg>
+            </div>
+        </a>
     </div>
 
     <div class="main-content">
@@ -124,7 +170,6 @@
                     </select>
                 </div>
 
-                <!-- НОВОЕ ПОЛЕ: Комментарий -->
                 <div class="form-group">
                     <label for="message">Комментарий (необязательно)</label>
                     <textarea id="message" name="message" class="form-control" placeholder="Расскажите о вашем проекте, задайте вопрос или опишите пожелания..."></textarea>
@@ -137,25 +182,16 @@
 
    <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Получаем параметр plan из адресной строки (например, ?plan=Medium)
     const urlParams = new URLSearchParams(window.location.search);
     const planName = urlParams.get('plan');
 
     if (planName) {
-        // 2. Находим все выпадающие списки на странице
         const selects = document.querySelectorAll('select');
-        
         selects.forEach(select => {
-            // 3. Проверяем каждую опцию в списке
             for (let i = 0; i < select.options.length; i++) {
-                // Сравниваем текст или значение опции с названием тарифа (без учёта регистра)
                 if (select.options[i].text.toLowerCase() === planName.toLowerCase() || 
                     select.options[i].value.toLowerCase() === planName.toLowerCase()) {
-                    
-                    // 4. Выбираем эту опцию
                     select.selectedIndex = i;
-                    
-                    // 5. Сообщаем странице, что значение изменилось (важно для конструкторов сайтов)
                     select.dispatchEvent(new Event('change', { bubbles: true }));
                     break;
                 }
